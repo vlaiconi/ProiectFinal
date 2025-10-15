@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Editare carte{% endblock %}
+
+{% block content %}
+<h1>Editare carte</h1>
+
+<form method="POST" action="{{ url_for('editare_carte', id_carte=carte['id']) }}">
+    <div class="mb-3">
+        <label for="carte" class="form-label">Titlu carte:</label>
+        <input type="text" id="carte" name="carte" class="form-control" value="{{ carte['carte'] }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="autorul_cartii" class="form-label">Autor:</label>
+        <input type="text" id="autorul_cartii" name="autorul cartii" class="form-control" value="{{ carte['autor'] }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="numarul_pagini" class="form-label">Număr pagini:</label>
+        <input type="number" id="numarul_pagini" name="numarul de pagini al cartii" class="form-control" value="{{ carte['pagini'] }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="data_citirii" class="form-label">Data citirii:</label>
+        <input type="date" id="data_citirii" name="data citirii" class="form-control" value="{{ carte['data_citirii'] }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="genul_cartii" class="form-label">Raft:</label>
+        <input type="text" id="genul_cartii" name="genul cartii" class="form-control" value="{{ carte['raft'] }}">
+    </div>
+
+    <div class="mb-3">
+        <label for="statusul_cartii" class="form-label">Status:</label>
+        <input type="text" id="statusul_cartii" name="statusul cartii" class="form-control" value="{{ carte['status'] }}">
+    </div>
+
+    <div class="mb-3">
+        <label for="rating_ul_cartii" class="form-label">Rating (0-5):</label>
+        <input type="number" id="rating_ul_cartii" name="rating-ul cartii" min="0" max="5" class="form-control" value="{{ carte['rating'] }}">
+    </div>
+
+    <button type="submit" class="btn btn-success">Salvează modificările</button>
+    <a href="{{ url_for('listare_carti') }}" class="btn btn-secondary">Anulează</a>
+</form>
+{% endblock %}

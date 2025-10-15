@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Cărți citite pe lună{% endblock %}
+
+{% block content %}
+<h1>Cărți citite într-un interval</h1>
+
+<form method="GET" action="{{ url_for('carti_luna') }}" class="mb-4">
+    <div class="mb-3">
+        <label for="start_luna" class="form-label">Data început (zz/ll/aa):</label>
+        <input type="text" id="start_luna" name="start_luna" placeholder="ex: 01/01/25" required class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label for="sfarsit_luna" class="form-label">Data sfârșit (zz/ll/aa):</label>
+        <input type="text" id="sfarsit_luna" name="sfarsit_luna" placeholder="ex: 31/01/25" required class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Afișează</button>
+</form>
+
+{% if mesaj %}
+    <p><strong>{{ mesaj }}</strong></p>
+
+    {% if carti13 %}
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Carte</th>
+                <th>Autor</th>
+                <th>Pagini</th>
+                <th>Raft</th>
+                <th>Rating (0-5⭐️)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for carte in carti13 %}
+            <tr>
+                <td>{{ carte[0] }}</td>
+                <td>{{ carte[1] }}</td>
+                <td>{{ carte[2] }}</td>
+                <td>{{ carte[3] }}</td>
+                <td>{{ carte[4] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>Nu există cărți pentru perioada selectată.</p>
+    {% endif %}
+{% endif %}
+{% endblock %}

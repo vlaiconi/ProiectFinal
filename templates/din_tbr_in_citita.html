@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Mută carte din TBR în Citită{% endblock %}
+
+{% block content %}
+<h2>Mută cartea "{{ carte[0] }}" din TBR în Citită</h2>
+
+<form method="POST" action="{{ url_for('din_tbr_in_citita', id_carte=id_carte) }}">
+    <div class="mb-3">
+        <label for="data_citirii" class="form-label">Data citirii:</label>
+        <input type="date" id="data_citirii" name="data citirii" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="rating" class="form-label">Rating (1-5):</label>
+        <input type="number" id="rating" name="rating-ul cartii" min="1" max="5" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-success">Mută cartea</button>
+    <a href="{{ url_for('listare_carti_tbr') }}" class="btn btn-secondary ms-2">Anulează</a>
+</form>
+{% endblock %}

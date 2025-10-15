@@ -1,0 +1,39 @@
+<div class="sidebar position-sticky px-3">
+
+  <h5 class="mt-3">🏠 Biblioteca mea</h5>
+  <a href="{{ url_for('index') }}">📖 Cărți</a>
+
+  <h5 class="mt-3">📚 Acțiuni Biblioteca</h5>
+  <a href="{{ url_for('filtru_raft') }}">🔍 Filtru raft</a>
+  <a href="{{ url_for('listare_carti') }}">📝 Editare/Ștergere</a>
+  <a href="{{ url_for('adaugare_carte') }}">➕ Adaugă carte</a>
+  <a href="{{ url_for('anul_publicarii') }}">📅 Actualizează an publicare</a>
+  <a href="{{ url_for('adaugare_carte_planificata') }}">🕒 Adaugă o carte la TBR</a>
+  <a href="{{ url_for('listare_carti_tbr') }}">📝 TBR</a>
+
+  <h5 class="mt-3">📊 Statistici</h5>
+
+  <div class="submenu">
+    <strong>⭐ Ratinguri</strong>
+    <a href="{{ url_for('avg_rating') }}">Rating mediu</a>
+    <a href="{{ url_for('avg_rating_raft') }}">Rating pe raft</a>
+    <a href="{{ url_for('avg_rating_autor') }}">Rating pe autor</a>
+  </div>
+
+  <div class="submenu">
+    <strong>🔎 Filtre / lună</strong>
+    <a href="{{ url_for('pagini_luna') }}">Pagini / interval</a>
+    <a href="{{ url_for('carti_luna') }}">Cărți / interval</a>
+  </div>
+
+  <div class="submenu">
+    <strong>📊 Histograme</strong>
+    <a href="{{ url_for('histograma_carti_luna') }}">Cărți / lună</a>
+    <a href="{{ url_for('histograma_pagini_luna') }}">Pagini / lună</a>
+    <a href="{{ url_for('histograma_anul_publicarii') }}">Ani publicare</a>
+  </div>
+
+  <h5 class="mt-3">📖 Jurnal</h5>
+<a href="{{ url_for('jurnal') }}">📝 Vizualizează jurnal</a>
+
+</div>

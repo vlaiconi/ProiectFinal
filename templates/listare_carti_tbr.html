@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista cărților TBR{% endblock %}
+
+{% block content %}
+<h1>Cărți în TBR (To Be Read)</h1>
+
+<table class="table table-striped mt-4">
+    <thead>
+        <tr>
+            <th>Titlu</th>
+            <th>Autor</th>
+            <th>Număr pagini</th>
+            <th>Raft (Gen)</th>
+            <th>Acțiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for carte in carti %}
+        <tr>
+            <td>{{ carte.carte }}</td>
+            <td>{{ carte.autor }}</td>
+            <td>{{ carte.pagini }}</td>
+            <td>{{ carte.raft }}</td>
+            <td>
+                <a href="{{ url_for('din_tbr_in_citita', id_carte=carte.id) }}" class="btn btn-sm btn-primary">Marchează ca citită</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="5" class="text-center">Nu există cărți în TBR.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

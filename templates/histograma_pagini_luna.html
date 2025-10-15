@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Histogramă Pagini pe Lună{% endblock %}
+
+{% block content %}
+  <h1>Histogramă: Număr pagini pe lună</h1>
+  <div>
+    {{ graph_html | safe }}
+  </div>
+{% endblock %}
+

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Filtru Raft{% endblock %}
+
+{% block content %}
+<h1>Filtrează cărțile după raft</h1>
+
+<form method="POST" action="{{ url_for('filtru_raft') }}" class="mb-4">
+    <div class="mb-3">
+        <label for="raspuns3" class="form-label">Selectează raft:</label>
+        <select id="raspuns3" name="raspuns3" class="form-select" required>
+            {% for raft in carti1 %}
+            <option value="{{ raft[0] }}">{{ raft[0] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrează</button>
+</form>
+
+{% if carti2 %}
+<h2>Rezultate filtrare:</h2>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Carte</th>
+            <th>Autor</th>
+            <th>Pagini</th>
+            <th>Data citirii</th>
+            <th>Raft</th>
+            <th>Status</th>
+            <th>Rating (0-5⭐️)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for carte in carti2 %}
+        <tr>
+            <td>{{ carte[0] }}</td>
+            <td>{{ carte[1] }}</td>
+            <td>{{ carte[2] }}</td>
+            <td>{{ carte[3] }}</td>
+            <td>{{ carte[4] }}</td>
+            <td>{{ carte[5] }}</td>
+            <td>{{ carte[6] }} ⭐️</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    {% if request.method == 'POST' %}
+        <p>Nu există cărți pe raftul selectat.</p>
+    {% endif %}
+{% endif %}
+{% endblock %}

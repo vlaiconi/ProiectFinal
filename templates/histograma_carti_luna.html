@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Histogramă Cărți pe Lună 2025{% endblock %}
+
+{% block content %}
+  <h1>Histogramă: Cărți citite pe lună în 2025</h1>
+  <div>
+    {{ graph_html | safe }}
+  </div>
+{% endblock %}
+

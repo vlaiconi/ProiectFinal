@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Rating Mediu pe Raft{% endblock %}
+
+{% block content %}
+<form method="POST" class="mb-4">
+    <label for="raspuns5" class="form-label">Selectează autor:</label>
+    <select name="raspuns5" id="raspuns5" class="form-select" required>
+        {% for autor in autori %}
+            <option value="{{ autor[0] }}">{{ autor[0] }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-primary mt-2">Calculează rating mediu</button>
+</form>
+
+{% if medie_rating_autor is not none %}
+    <p>Rating mediu pentru autorul <strong>{{ request.form.get('raspuns5') }}</strong>: <strong>{{ "%.2f"|format(medie_rating_autor) }}</strong></p>
+{% else %}
+    <p>Nu există rating pentru acest autor.</p>
+{% endif %}
+
+{% if carti_autor %}
+    <h3>Cărțile autorului selectat:</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Titlu</th>
+                <th>Nr. pagini</th>
+                <th>Data citirii</th>
+                <th>Raft</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for carte in carti_autor %}
+            <tr>
+                <td>{{ carte[1] }}</td>
+                <td>{{ carte[3] }}</td>
+                <td>{{ carte[4] }}</td>
+                <td>{{ carte[5] }}</td>
+                <td>{{ carte[7] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}

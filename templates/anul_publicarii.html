@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Actualizează anul publicării{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">📚 Actualizează anul publicării pentru o carte</h1>
+
+{% if mesaj %}
+    <div class="alert alert-info">{{ mesaj }}</div>
+{% endif %}
+
+<form method="POST" action="{{ url_for('anul_publicarii') }}" class="mb-5">
+    <div class="mb-3">
+        <label for="carte" class="form-label">Alege cartea:</label>
+        <select id="carte" name="carte" class="form-select" required>
+            <option value="" disabled selected>-- Selectează o carte --</option>
+            {% for carte in carti %}
+                <option value="{{ carte[0] }}">{{ carte[0] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="anul" class="form-label">Anul publicării:</label>
+        <input type="number" id="anul" name="anul" class="form-control" min="1500" max="{{ current_year }}" required placeholder="ex: 2023">
+    </div>
+
+    <button type="submit" class="btn btn-primary">💾 Actualizează</button>
+</form>
+
+{% if carti_actualizate %}
+    <h2 class="mb-3">📖 Lista actualizată a cărților</h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Titlu</th>
+                <th>Anul publicării</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for carte, anul in carti_actualizate %}
+                <tr>
+                    <td>{{ carte }}</td>
+                    <td>
+                        {% if anul %}
+                            {{ anul }}
+                        {% else %}
+                            <em>necunoscut</em>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p class="text-muted">Nu există date despre anul publicării.</p>
+{% endif %}
+
+{% endblock %}

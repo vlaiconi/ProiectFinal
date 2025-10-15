@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Histogramă Anul Publicării{% endblock %}
+
+{% block content %}
+  <h1>Histogramă: Anul Publicării</h1>
+
+  <div>
+    {{ graph_html | safe }}
+  </div>
+{% endblock %}

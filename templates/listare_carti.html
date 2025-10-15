@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Listare cărți{% endblock %}
+
+{% block content %}
+<h1>Lista cărților din bibliotecă</h1>
+
+<table class="table table-striped table-bordered align-middle">
+    <thead>
+        <tr>
+            <th>Carte</th>
+            <th>Autor</th>
+            <th>Pagini</th>
+            <th>Data citirii</th>
+            <th>Raft</th>
+            <th>Status</th>
+            <th>Rating</th>
+            <th>Acțiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for carte in carti %}
+<tr>
+    <td>{{ carte['carte'] }}</td>
+    <td>{{ carte['autor'] }}</td>
+    <td>{{ carte['pagini'] }}</td>
+    <td>{{ carte['data_citirii'] }}</td>
+    <td>{{ carte['raft'] }}</td>
+    <td>{{ carte['status'] }}</td>
+    <td>{{ carte['rating'] }}</td>
+    <td>
+        <div class="d-flex gap-2">
+            <a href="{{ url_for('editare_carte', id_carte=carte['id']) }}" class="btn btn-sm btn-primary">Editare</a>
+            <form method="POST" action="{{ url_for('stergere_carte') }}" onsubmit="return confirm('Sigur dorești să ștergi cartea?');" style="display:inline;">
+                <input type="hidden" name="id_carte" value="{{ carte['id'] }}">
+                <button type="submit" class="btn btn-sm btn-danger">Ștergere</button>
+            </form>
+        </div>
+    </td>
+</tr>
+{% endfor %}
+
+    </tbody>
+</table>
+{% endblock %}

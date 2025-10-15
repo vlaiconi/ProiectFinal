@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Rating Mediu General{% endblock %}
+
+{% block content %}
+<h1>Rating mediu general al cărților</h1>
+
+{% if medie_rating %}
+<p>Rating mediu: <strong>{{ "%.2f"|format(medie_rating)}}⭐️</strong></p>
+{% else %}
+<p>Nu există date pentru calcul.</p>
+{% endif %}
+{% endblock %}

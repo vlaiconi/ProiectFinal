@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Jurnal modificări{% endblock %}
+
+{% block content %}
+<h2>Jurnal modificări</h2>
+<table class="table table-striped table-dark">
+  <thead>
+    <tr>
+      <th>Timp</th>
+      <th>Utilizator</th>
+      <th>Acțiune</th>
+      <th>Descriere</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for intrare in intrari %}
+    <tr>
+      <td>{{ intrare[0] }}</td>
+      <td>{{ intrare[1] }}</td>
+      <td>{{ intrare[2] }}</td>
+      <td>{{ intrare[3] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

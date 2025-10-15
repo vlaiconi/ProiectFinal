@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Acasă{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">📚 Cărțile mele</h1>
+
+{% set coloane = {
+    'carte': 'Carte',
+    'autor': 'Autor',
+    'pagini': 'Pagini',
+    'data_citirii': 'Data citirii',
+    'raft': 'Raft',
+    'rating': 'Rating (0-5⭐️)',
+    'anul_publicarii': 'Anul publicării'
+} %}
+
+<table class="table table-bordered table-striped align-middle">
+    <thead class="table-light">
+        <tr>
+            {% for camp_bd, titlu_afisat in coloane.items() %}
+            <th class="text-nowrap">
+                <div class="d-flex justify-content-between align-items-center" style="min-width: 130px;">
+                    <span>{{ titlu_afisat }}</span>
+                    <span class="ms-1">
+                        <a href="/?camp={{ camp_bd }}&ordine=ASC"
+                           style="text-decoration: none; color: {% if camp == camp_bd and ordine == 'ASC' %}blue{% else %}gray{% endif %}">↑</a>
+                        <a href="/?camp={{ camp_bd }}&ordine=DESC"
+                           style="text-decoration: none; color: {% if camp == camp_bd and ordine == 'DESC' %}blue{% else %}gray{% endif %}">↓</a>
+                    </span>
+                </div>
+            </th>
+            {% endfor %}
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for carte in carti %}
+        <tr>
+            <td>{{ carte[0] }}</td>   {# carte #}
+            <td>{{ carte[1] }}</td>   {# autor #}
+            <td>{{ carte[2] }}</td>   {# pagini #}
+            <td>{{ carte[3] }}</td>   {# data_citirii #}
+            <td>{{ carte[4] }}</td>   {# raft #}
+            <td>{{ carte[5] }} ⭐️</td> {# rating #}
+            <td>{{ carte[6] if carte[6] else "–" }}</td> {# anul_publicarii #}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
