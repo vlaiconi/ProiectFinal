@@ -151,6 +151,7 @@ def stergere_carte():
     descriere = f"Utilizatorul {utilizator} a șters cartea {id_carte} din biblioteca sa."
     adauga_jurnal(utilizator, 'stergere carte', descriere)
 
+    flash(f'Cartea a fost stearsa.')
     # redirectionare catre pagina de listare a cartilor
     return redirect(url_for('listare_carti'))
 
@@ -161,11 +162,24 @@ def editare_carte(id_carte):
     if request.method == 'POST':
         carte = request.form['carte']
         autor = request.form['autorul cartii']
-        pagini = int(request.form['numarul de pagini al cartii'])
-        data_citirii = datetime.strptime(request.form['data citirii'], "%Y-%m-%d").strftime("%Y-%m-%d")
+
+        try:
+            pagini = int(request.form['numarul de pagini al cartii'])
+        except ValueError:
+            return "Numărul de pagini trebuie să fie un număr întreg."
+
+        try:
+            data_citirii = datetime.strptime(request.form['data citirii'], "%Y-%m-%d").strftime("%Y-%m-%d")
+        except ValueError:
+            return "Data citirii nu are formatul corect"
+
         raft = request.form['genul cartii']
         status = request.form['statusul cartii']
-        rating = int(request.form['rating-ul cartii'])
+
+        try:
+            rating = int(request.form['rating-ul cartii'])
+        except ValueError:
+            return "Rating-ul trebuie să fie un număr întreg."
 
         conn = sqlite3.connect("biblioteca.db")
         c = conn.cursor()
@@ -177,6 +191,13 @@ def editare_carte(id_carte):
         ''', (carte, autor, pagini, data_citirii, raft, status, rating, id_carte))
         conn.commit()
         conn.close()
+
+        flash(f'Detaliile cartii {carte} au fost modificate')
+
+        if not carte:
+            return "Carte negăsită după actualizare"
+
+        return redirect(url_for('editare_carte', id_carte=id_carte))
 
     # la accesarea paginii (GET), se selecteaza cartea din baza de date dupa id
     else:
@@ -335,7 +356,7 @@ def pagini_luna():
 
     # verificarea datelor
     if not start_luna or not sfarsit_luna:
-        return render_template('pagini_luna.html', mesaj="te rog introdu date")
+        return render_template('pagini_luna.html', mesaj="Introdu date!")
 
     try:
         # convertim datele introduse din formatul ZI-LUNA-AN in formatul AN-LUNA-ZI pentru SQL
@@ -359,7 +380,7 @@ def pagini_luna():
 
     # daca s-au citit carti in acel interval:
     if total_pagini:
-        mesaj = f"Numar de pagini intre {start_luna} si {sfarsit_luna} este {total_pagini}"
+        mesaj = f"Numar de pagini citite intre {start_luna} si {sfarsit_luna} este {total_pagini}."
     # daca NU s-au citit carti in acel interval:
     else:
         mesaj = "Nu ai citit in aceasta perioada"
@@ -377,7 +398,7 @@ def carti_luna():
 
     # verificarea datelor
     if not start_luna or not sfarsit_luna:
-        return render_template('carti_luna.html', mesaj="te rog introdu date")
+        return render_template('carti_luna.html', mesaj="Introdu date!")
 
     try:
         # convertim datele introduse din formatul ZI-LUNA-AN in formatul AN-LUNA-ZI pentru SQL
@@ -529,7 +550,7 @@ def anul_publicarii():
         # actualizeaza anul publicarii pentru cartea selectata si ofera un mesaj de confirmare
         if rezultat:
             c.execute('UPDATE biblioteca SET anul_publicarii=? WHERE carte=?', (anul,carte))
-            mesaj = f'Anul publicarii cartii {carte} a fost actualizat, acesta fiind {anul}'
+            mesaj = f'Anul publicarii cartii {carte} a fost actualizat, acesta fiind {anul}.'
 
     # obtinem lista actualizata a cartilor si a anilor de publicare
     c.execute('SELECT carte, anul_publicarii FROM biblioteca')
